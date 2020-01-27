@@ -47,7 +47,7 @@ namespace Modul3Oblig1
                         continue;
                     }
 
-                    liste[index].SkrivInfoEnkeltperson();
+                    liste[index].SkrivInfoEnkeltperson(liste);
                 }
                 else
                 {
