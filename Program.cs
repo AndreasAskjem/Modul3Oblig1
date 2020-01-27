@@ -41,7 +41,7 @@ namespace Modul3Oblig1
                         continue;
                     }
                     var index = int.Parse(indexStr) - 1;
-                    if (index >= liste.Count)
+                    if (index >= liste.Count || index < 0)
                     {
                         Console.WriteLine($"  ID må være et tall mellom 1 og {liste.Count}.");
                         continue;
