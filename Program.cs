@@ -34,8 +34,7 @@ namespace Modul3Oblig1
                 else if (input.Substring(0, 4) == "vis ")
                 {
                     var indexStr = input.Substring(4);
-
-                    if (!indexStr.All(char.IsDigit))
+                    if (indexStr.Length == 0 || !indexStr.All(char.IsDigit))
                     {
                         Console.WriteLine($"  ID må være et tall mellom 1 og {liste.Count}.");
                         continue;
@@ -65,7 +64,7 @@ namespace Modul3Oblig1
             var marius = new Person { Id = 5, FirstName = "Marius", LastName = "Borg Høiby", BirthYear = 1997 };
             var harald = new Person { Id = 6, FirstName = "Harald", BirthYear = 1937 };
             var sonja = new Person { Id = 7, FirstName = "Sonja", BirthYear = 1937 };
-            var olav = new Person { Id = 8, FirstName = "Olav", BirthYear = 1903 };
+            var olav = new Person { Id = 8, FirstName = "Olav", BirthYear = 1903, DeathYear = 1991};
 
             sverreMagnus.Father = haakon;
             sverreMagnus.Mother = metteMarit;

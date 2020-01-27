@@ -88,18 +88,6 @@ namespace Modul3Oblig1
                 }
             }
 
-
-            /*
-            if (Children.Count > 0)
-            {
-                output += "  Barn:\n";
-                foreach (var child in Children)
-                {
-                    output += $"    {child.FirstName}, (ID: {child.Id})\n";
-                }
-            }
-            */
-
             Console.WriteLine(output);
         }
     }
