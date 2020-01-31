@@ -17,8 +17,11 @@ namespace Modul3Oblig1
 
                 if (input.Length == 0)
                 {
+                    Console.WriteLine();
                     continue;
                 }
+
+                input = input.ToLower();
 
                 if (input == "hjelp")
                 {
@@ -28,31 +31,66 @@ namespace Modul3Oblig1
                 {
                     foreach (var person in liste)
                     {
-                        person.SkrivInfoListe();
+                        person.Show();
                     }
                 }
-                else if (input.Substring(0, 4) == "vis ")
+                else if (input.Length > 4 && input.Substring(0, 4) == "vis ")
                 {
                     var indexStr = input.Substring(4);
                     if (indexStr.Length == 0 || !indexStr.All(char.IsDigit))
                     {
-                        Console.WriteLine($"  ID må være et tall mellom 1 og {liste.Count}.");
-                        continue;
-                    }
-                    var index = int.Parse(indexStr) - 1;
-                    if (index >= liste.Count || index < 0)
-                    {
-                        Console.WriteLine($"  ID må være et tall mellom 1 og {liste.Count}.");
+                        Console.WriteLine("  Finner ikke ID.");
+                        Console.WriteLine();
                         continue;
                     }
 
-                    liste[index].SkrivInfoEnkeltperson(liste);
+                    var id = int.Parse(indexStr);
+                    var index = liste.FindIndex(p => p.Id == id);
+
+                    if (index == -1)
+                    {
+                        Console.WriteLine("  Finner ikke ID.");
+                        Console.WriteLine();
+                        continue;
+                    }
+
+                    var person = liste[index];
+                    
+                    person.Show();
+                    ShowChildren(liste, id);
                 }
                 else
                 {
                     Console.WriteLine("  Ikke godkjent input. Skriv \"hjelp\" for å se alternativer.");
                 }
+
+                Console.WriteLine();
             }
+        }
+
+        private static void ShowChildren(List<Person> liste, int id)
+        {
+            foreach (var p in liste)
+            {
+                if (p.Father != null && p.Father.Id == id)
+                {
+                    Console.Write("  Barn:"); 
+                    p.Show();
+                }
+
+                if (p.Mother != null && p.Mother.Id == id)
+                {
+                    Console.Write("  Barn:");
+                    p.Show();
+                }
+            }
+        }
+        private static void ShowHelp()
+        {
+            const string text = "  hjelp => Vis tilgjengelige kommandoer og hva de gjør.\n" +
+                                "  liste => Lister alle personer med id, fornavn, fødselsår, dødsår og navn og id på foreldre som er registrert.\n" +
+                                "  vis < id > => Viser en bestemt person med navn og ID for foreldre og barn";
+            Console.WriteLine(text);
         }
 
         private static List<Person> SetUpPersonObjects()
@@ -88,14 +126,6 @@ namespace Modul3Oblig1
             };
 
             return liste;
-        }
-
-        private static void ShowHelp()
-        {
-            const string text = "  hjelp => Vis tilgjengelige kommandoer og hva de gjør.\n" +
-                                "  liste => Lister alle personer med id, fornavn, fødselsår, dødsår og navn og id på foreldre som er registrert.\n" +
-                                "  vis < id > => Viser en bestemt person med navn og ID for foreldre og barn";
-            Console.WriteLine(text);
         }
     }
 }
